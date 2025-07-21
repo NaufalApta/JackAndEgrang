@@ -1,0 +1,179 @@
+int totalFrames = 300;
+int currentFrame = 0;
+boolean isTalking = true;
+
+void setup() {
+  size(800, 450);
+  frameRate(60);
+}
+
+void draw() {
+  drawInterior();
+  drawWindow(550, 100);
+  drawTable(160, 270);
+  drawBookshelf(50, 240);
+  drawPainting(250, 100);
+
+  pushMatrix();
+  scale(1.8);
+  drawJack(220, 220);
+  popMatrix();
+
+  pushMatrix();
+  scale(2.0);
+  drawKakek(150, 165, isTalking);
+  popMatrix();
+
+  currentFrame++;
+  if (currentFrame >= totalFrames) {
+    noLoop();
+  }
+
+  if (frameCount % 10 == 0) {
+    isTalking = !isTalking;
+  }
+}
+
+// Jack
+void drawJack(float x, float y) {
+  fill(255, 224, 189);
+  ellipse(x, y - 45, 36, 36); // kepala
+
+  fill(139, 69, 19);
+  arc(x, y - 50, 40, 36, PI, TWO_PI);
+  triangle(x - 12, y - 47, x - 6, y - 54, x - 3, y - 46);
+  triangle(x - 2, y - 48, x + 2, y - 54, x + 6, y - 47);
+  triangle(x + 4, y - 47, x + 10, y - 54, x + 12, y - 46);
+
+  fill(255);
+  ellipse(x - 7, y - 46, 7, 7);
+  ellipse(x + 7, y - 46, 7, 7);
+  fill(0);
+  ellipse(x - 9, y - 46, 3, 3);
+  ellipse(x + 5, y - 46, 3, 3);
+
+  stroke(0);
+  strokeWeight(1);
+  line(x - 6, y - 36, x + 6, y - 36);
+  noStroke();
+
+  fill(200, 0, 0);
+  rect(x - 15, y - 30, 30, 25, 6);
+
+  fill(255, 224, 189);
+  ellipse(x - 18, y - 10, 7, 14);
+  ellipse(x + 18, y - 10, 7, 14);
+
+  fill(30);
+  rect(x - 20, y - 5, 40, 28, 5);
+
+  fill(255, 165, 0);
+  rect(x - 13, y + 2, 10, 15, 3);
+  rect(x + 3, y + 2, 10, 15, 3);
+  fill(255);
+  rect(x - 13, y + 17, 6, 5);
+  rect(x + 7, y + 17, 6, 5);
+  fill(90, 60, 40);
+  rect(x - 13, y + 22, 10, 6, 2);
+  rect(x + 7, y + 22, 10, 6, 2);
+}
+
+// Kakek
+void drawKakek(float x, float y, boolean mouthOpen) {
+  fill(255, 224, 189);
+  ellipse(x, y - 45, 36, 36); // Kepala
+
+  fill(230);
+  arc(x, y - 50, 40, 36, PI, TWO_PI);
+  ellipse(x - 18, y - 45, 5, 5);
+  ellipse(x + 18, y - 45, 5, 5);
+
+  fill(255);
+  ellipse(x - 7, y - 46, 6, 6);
+  ellipse(x + 7, y - 46, 6, 6);
+  fill(0);
+  ellipse(x - 5, y - 46, 2, 2);
+  ellipse(x + 9, y - 46, 2, 2);
+
+  // Mulut (animasi bicara)
+  fill(0);
+  if (mouthOpen) {
+    ellipse(x, y - 35, 8, 10); // mulut terbuka
+  } else {
+    rect(x - 3, y - 36, 6, 3, 2); // mulut tertutup
+  }
+
+  fill(230);
+  rect(x - 10, y - 40, 20, 3, 2); // Kumis
+
+  fill(85, 107, 47);
+  rect(x - 16, y - 30, 32, 35, 6); // Baju
+
+  fill(255, 224, 189);
+  ellipse(x - 18, y - 10, 7, 14);
+  ellipse(x + 18, y - 10, 7, 14);
+
+  fill(139, 69, 19);
+  rect(x - 13, y + 5, 10, 17, 3);
+  rect(x + 3, y + 5, 10, 17, 3);
+
+  fill(50);
+  rect(x - 13, y + 20, 10, 6, 2);
+  rect(x + 7, y + 20, 10, 6, 2);
+}
+
+void drawInterior() {
+  background(245, 222, 179); 
+  fill(205, 133, 63);        
+  rect(0, 300, width, 150);
+  stroke(180, 100, 50);
+  for (int i = 0; i < width; i += 40) {
+    line(i, 300, i, height);
+  }
+  noStroke();
+}
+
+void drawWindow(float x, float y) {
+  fill(173, 216, 230);
+  rect(x, y, 100, 100);
+  stroke(139, 69, 19);
+  strokeWeight(4);
+  line(x + 50, y, x + 50, y + 100);
+  line(x, y + 50, x + 100, y + 50);
+  noStroke();
+}
+
+void drawTable(float x, float y) {
+  fill(160, 82, 45);
+  rect(x, y, 120, 20);
+  rect(x + 10, y + 20, 10, 30);
+  rect(x + 100, y + 20, 10, 30);
+  fill(255);
+  ellipse(x + 60, y - 10, 20, 30);
+  fill(255, 0, 0);
+  ellipse(x + 60, y - 25, 10, 10);
+}
+
+void drawBookshelf(float x, float y) {
+  fill(139, 69, 19);
+  rect(x, y, 60, 100);
+  fill(255, 215, 0);
+  rect(x + 5, y + 10, 50, 10);
+  fill(100, 149, 237);
+  rect(x + 5, y + 30, 50, 10);
+  fill(34, 139, 34);
+  rect(x + 5, y + 50, 50, 10);
+}
+
+void drawPainting(float x, float y) {
+  fill(255);
+  rect(x, y, 80, 60);
+  stroke(139, 69, 19);
+  strokeWeight(4);
+  rect(x - 2, y - 2, 84, 64);
+  noStroke();
+  fill(255, 215, 0);
+  ellipse(x + 20, y + 20, 20, 20);
+  fill(100, 155, 100);
+  triangle(x + 10, y + 50, x + 30, y + 25, x + 50, y + 50);
+}
